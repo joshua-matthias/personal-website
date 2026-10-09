@@ -65,6 +65,16 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent;
 }
+/* Words that get split for animation are inline-blocks, so they need the gradient themselves */
+.grad .word__inner { background: inherit; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+/* Moving gradient: add class "grad--move" next to "grad" on any word */
+.grad--move, .grad--move .word__inner {
+  background-image: linear-gradient(100deg, var(--cyan), #6ea8ff, var(--violet), #6ea8ff, var(--cyan));
+  background-size: 300% 100%;
+  animation: gradMove 5s linear infinite;
+}
+@keyframes gradMove { to { background-position: -300% 0; } }
+
 .eyebrow {
   font-family: var(--font-head);
   text-transform: uppercase; letter-spacing: 0.22em;
@@ -177,8 +187,8 @@ html.lenis, html.lenis body { height: auto; }
 .hero__inner { position: relative; z-index: 2; padding-top: 90px; padding-bottom: 90px; }
 .hero__title {
   font-family: var(--font-head); font-weight: 700; color: var(--white);
-  font-size: clamp(2.5rem, 7vw, 5.6rem); line-height: 1.04; letter-spacing: -0.03em;
-  max-width: 15ch; margin-bottom: 28px;
+  font-size: clamp(2rem, 7vw, 5.6rem); line-height: 1.04; letter-spacing: -0.03em;
+  max-width: 17ch; margin-bottom: 28px;
 }
 /* each word is wrapped so it can slide up from a mask */
 .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
