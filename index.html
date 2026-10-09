@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ============================================================
+       SEO + SOCIAL SHARING   [EDIT ME]
+       Change the title, description and the web address (URL) below.
+       After Vercel gives you your real address, replace
+       https://your-site.vercel.app everywhere in this block.
+       ============================================================ -->
+  <title>Joshua | Trust-grade AI, Marketing &amp; Consulting · Singapore</title>
+  <meta name="description" content="Joshua is a Singapore-based marketer and AI builder helping organisations solve problems with trust-grade AI." />
+  <meta name="theme-color" content="#050b1f" />
+  <link rel="canonical" href="https://your-site.vercel.app/" /> <!-- [EDIT ME] -->
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Joshua | Trust-grade AI for organisations" />
+  <meta property="og:description" content="Marketing, AI builds, and consulting at the intersection of technology and trust." />
+  <meta property="og:url" content="https://your-site.vercel.app/" /> <!-- [EDIT ME] -->
+  <meta property="og:image" content="https://your-site.vercel.app/images/og-image.png" /> <!-- [EDIT ME] must be a full web address -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Joshua | Trust-grade AI for organisations" />
+  <meta name="twitter:description" content="Marketing, AI builds, and consulting at the intersection of technology and trust." />
+  <meta name="twitter:image" content="https://your-site.vercel.app/images/og-image.png" /> <!-- [EDIT ME] -->
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts: Space Grotesk (headings) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ============================================================
+       LIBRARIES (loaded from a CDN, nothing to install)
+       Order matters. "defer" keeps them in order and keeps the page fast.
+       Three.js r134 is the version Vanta 0.5.24 is built for.
+       ============================================================ -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.halo.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#hero" aria-label="Back to top">
+      <span class="nav__dot"></span>Joshua <!-- [EDIT ME] your name -->
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span>
+    </button>
+
+    <nav class="nav__links" id="navLinks" aria-label="Main">
+      <a href="#hero" data-section="hero">Home</a>
+      <a href="#about" data-section="about">About</a>
+      <a href="#work" data-section="work">Work</a>
+      <a href="#sidequests" data-section="sidequests">Side Quests</a>
+      <a href="#contact" data-section="contact" class="nav__cta">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===================== 1. HERO ===================== -->
+    <section class="hero" id="hero">
+      <!-- The 3D Vanta Halo effect draws itself in here. The CSS gradient is the fallback. -->
+      <div class="hero__bg" id="heroBg" aria-hidden="true">
+        <span class="hero__glow hero__glow--a"></span>
+        <span class="hero__glow hero__glow--b"></span>
+      </div>
+      <div class="hero__fade" aria-hidden="true"></div>
+
+      <div class="container hero__inner">
+        <p class="eyebrow" data-hero-fade>Singapore · Marketing · AI · Consulting</p>
+
+        <!-- [EDIT ME] Headline. Keep the <span class="grad"> around the part you want glowing. -->
+        <h1 class="hero__title" id="heroTitle">I help organisations solve problems with <span class="grad">trust-grade AI.</span></h1>
+
+        <!-- [EDIT ME] Short line under the headline -->
+        <p class="hero__sub" data-hero-fade>Marketing, AI builds, and consulting at the intersection of technology and trust.</p>
+
+        <div class="hero__actions" data-hero-fade>
+          <a href="#work" class="btn btn--primary">View my work <span class="btn__arrow">→</span></a>
+          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-hint" data-hero-fade aria-label="Scroll down">
+        <span>Scroll</span><i></i>
+      </a>
+    </section>
+
+    <!-- ===================== 2. ABOUT ===================== -->
+    <section class="section about" id="about">
+      <div class="container about__grid">
+
+        <div class="about__photo reveal">
+          <!-- [EDIT ME] Replace images/profile-placeholder.svg with your photo (keep the same name, or change it here) -->
+          <img src="images/profile-placeholder.svg" alt="Portrait of Joshua" width="640" height="800" loading="lazy" />
+          <span class="about__badge">📍 Singapore</span>
+        </div>
+
+        <div class="about__text">
+          <p class="eyebrow reveal">About</p>
+          <h2 class="section-title reveal">Building AI that people can <span class="grad">actually trust.</span></h2>
+
+          <!-- [EDIT ME] Your intro. Two or three short paragraphs works best. -->
+          <p class="lead reveal">Hi, I'm Joshua. I'm based in Singapore, where I mix marketing work with hands-on AI projects, from hackathons to personal builds.</p>
+          <p class="reveal">Soon I'll be joining Growth-X Consulting as an analyst, helping organisations adopt AI in a way that is clear, careful and dependable. [EDIT ME: add a line about what drives you.]</p>
+
+          <!-- [EDIT ME] Highlights. Change the number (data-count), the ending (data-suffix) and the label. -->
+          <div class="stats">
+            <article class="stat reveal-card">
+              <strong class="stat__num"><span data-count="5" data-suffix="+">5+</span></strong>
+              <span class="stat__label">AI projects built [EDIT ME]</span>
+            </article>
+            <article class="stat reveal-card">
+              <strong class="stat__num"><span data-count="3" data-suffix="">3</span></strong>
+              <span class="stat__label">Hackathons entered [EDIT ME]</span>
+            </article>
+            <article class="stat reveal-card">
+              <strong class="stat__num"><span data-count="100" data-suffix="%">100%</span></strong>
+              <span class="stat__label">Focus on trust [EDIT ME]</span>
+            </article>
+          </div>
+
+          <!-- [EDIT ME] Credentials / skills -->
+          <ul class="chips reveal">
+            <li>Analyst, Growth-X Consulting (incoming)</li>
+            <li>Marketing</li>
+            <li>AI builds</li>
+            <li>Responsible AI</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3. WORK ===================== -->
+    <section class="section work" id="work">
+      <div class="container">
+        <p class="eyebrow reveal">Selected work</p>
+        <h2 class="section-title reveal">Things I've <span class="grad">made &amp; shipped.</span></h2>
+
+        <!-- Filter buttons. The data-filter must match the data-category on the cards below. -->
+        <div class="filters reveal" role="group" aria-label="Filter projects">
+          <button class="filter is-active" data-filter="all">All</button>
+          <button class="filter" data-filter="marketing">Marketing</button>
+          <button class="filter" data-filter="ai">AI Projects</button>
+          <button class="filter" data-filter="client">Client Work</button>
+        </div>
+
+        <!-- ============================================================
+             PROJECT CARDS  [EDIT ME]
+             To add a project: copy one <article class="card"> block, change
+             data-category (marketing / ai / client), the image, title,
+             description, tags and link.
+             ============================================================ -->
+        <div class="grid" id="workGrid">
+
+          <!-- Marketing 1 -->
+          <article class="card" data-category="marketing">
+            <div class="card__img"><img src="images/project-1.svg" alt="" loading="lazy" width="800" height="500" /></div>
+            <div class="card__body">
+              <h3>Marketing Project One [EDIT ME]</h3>
+              <p>One line about the campaign and the result you achieved.</p>
+              <ul class="tags"><li>Campaign</li><li>Social</li></ul>
+              <a class="card__link" href="#" target="_blank" rel="noopener">View project <span>→</span></a> <!-- [EDIT ME] link -->
+            </div>
+          </article>
+
+          <!-- Marketing 2 -->
+          <article class="card" data-category="marketing">
+            <div class="card__img"><img src="images/project-2.svg" alt="" loading="lazy" width="800" height="500" /></div>
+            <div class="card__body">
+              <h3>Marketing Project Two [EDIT ME]</h3>
+              <p>One line about the brand, the strategy and what changed.</p>
+              <ul class="tags"><li>Brand</li><li>Content</li></ul>
+              <a class="card__link" href="#" target="_blank" rel="noopener">View project <span>→</span></a> <!-- [EDIT ME] link -->
+            </div>
+          </article>
+
+          <!-- AI 1 -->
+          <article class="card" data-category="ai">
+            <div class="card__img"><img src="images/project-3.svg" alt="" loading="lazy" width="800" height="500" /></div>
+            <div class="card__body">
+              <h3>AI Hackathon Build [EDIT ME]</h3>
+              <p>One line about what it does and the problem it solves.</p>
+              <ul class="tags"><li>Hackathon</li><li>LLM</li></ul>
+              <a class="card__link" href="#" target="_blank" rel="noopener">View project <span>→</span></a> <!-- [EDIT ME] link -->
+            </div>
+          </article>
+
+          <!-- AI 2 -->
+          <article class="card" data-category="ai">
+            <div class="card__img"><img src="images/project-4.svg" alt="" loading="lazy" width="800" height="500" /></div>
+            <div class="card__body">
+              <h3>Personal AI Project [EDIT ME]</h3>
+              <p>One line about the idea and the tools you used.</p>
+              <ul class="tags"><li>Personal</li><li>Python</li></ul>
+              <a class="card__link" href="#" target="_blank" rel="noopener">View project <span>→</span></a> <!-- [EDIT ME] link -->
+            </div>
+          </article>
+
+          <!-- Client 1: coming soon -->
+          <article class="card card--soon" data-category="client">
+            <div class="card__img"><img src="images/project-5.svg" alt="" loading="lazy" width="800" height="500" /><span class="soon-pill">Coming soon</span></div>
+            <div class="card__body">
+              <h3>Client Work [EDIT ME]</h3>
+              <p>Case studies from my role at Growth-X Consulting will appear here.</p>
+              <ul class="tags"><li>Consulting</li><li>Strategy</li></ul>
+              <span class="card__link is-disabled">Coming soon</span>
+            </div>
+          </article>
+
+          <!-- Client 2: coming soon -->
+          <article class="card card--soon" data-category="client">
+            <div class="card__img"><img src="images/project-6.svg" alt="" loading="lazy" width="800" height="500" /><span class="soon-pill">Coming soon</span></div>
+            <div class="card__body">
+              <h3>Client Work [EDIT ME]</h3>
+              <p>Another engagement, shared once the project is complete.</p>
+              <ul class="tags"><li>Consulting</li><li>AI</li></ul>
+              <span class="card__link is-disabled">Coming soon</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4. SIDE QUESTS ===================== -->
+    <section class="section sq" id="sidequests">
+      <!-- Floating shapes that drift at different speeds (parallax) -->
+      <div class="sq__shapes" aria-hidden="true">
+        <span class="shape shape--ring" data-speed="-160"></span>
+        <span class="shape shape--blob" data-speed="120"></span>
+        <span class="shape shape--plus" data-speed="-80">+</span>
+        <span class="shape shape--dot" data-speed="200"></span>
+      </div>
+
+      <div class="sq__pin" id="sqPin">
+        <div class="container sq__head">
+          <p class="eyebrow reveal">Side quests</p>
+          <h2 class="section-title reveal">When I'm not at my desk, <span class="grad">I'm exploring.</span></h2>
+        </div>
+
+        <div class="sq__viewport">
+          <div class="sq__track" id="sqTrack">
+
+            <!-- [EDIT ME] Substack -->
+            <article class="quest quest--a">
+              <span class="quest__num">01</span>
+              <span class="quest__icon" aria-hidden="true">✍️</span>
+              <h3>Substack Writing</h3>
+              <p>Short essays on AI, trust and what actually works. [EDIT ME: describe your newsletter.]</p>
+              <a class="btn btn--primary btn--sm" href="https://substack.com" target="_blank" rel="noopener">Read the newsletter <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
+            </article>
+
+            <!-- [EDIT ME] Podcasts -->
+            <article class="quest quest--b">
+              <span class="quest__num">02</span>
+              <span class="quest__icon" aria-hidden="true">🎙️</span>
+              <h3>Podcasts</h3>
+              <p>Conversations with builders and thinkers. [EDIT ME: say whether you host, guest, or both.]</p>
+              <a class="btn btn--primary btn--sm" href="https://podcasts.apple.com" target="_blank" rel="noopener">Listen in <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
+            </article>
+
+            <!-- [EDIT ME] Community -->
+            <article class="quest quest--c">
+              <span class="quest__num">03</span>
+              <span class="quest__icon" aria-hidden="true">🌱</span>
+              <h3>Community Founder</h3>
+              <p>Bringing curious people together to learn and build. [EDIT ME: name your community.]</p>
+              <a class="btn btn--primary btn--sm" href="#" target="_blank" rel="noopener">Join the community <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 5. CONTACT ===================== -->
+    <section class="section contact" id="contact">
+      <div class="contact__glow" aria-hidden="true"></div>
+      <div class="container contact__inner">
+        <p class="eyebrow reveal">Contact</p>
+        <h2 class="contact__title" id="contactTitle">Let's build something <span class="grad">trustworthy.</span></h2>
+        <p class="lead reveal">Have a project, an idea, or just want to say hello? My inbox is open.</p>
+
+        <div class="contact__actions reveal">
+          <a class="btn btn--primary btn--lg" href="mailto:hello@example.com">hello@example.com</a> <!-- [EDIT ME] email (change in both places on this line) -->
+          <a class="btn btn--ghost btn--lg" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a> <!-- [EDIT ME] link -->
+          <a class="btn btn--ghost btn--lg" href="https://github.com/" target="_blank" rel="noopener">GitHub</a> <!-- [EDIT ME] link -->
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container footer__inner">
+          <!-- [EDIT ME] name. The year fills in automatically. -->
+          <span>© <span id="year">2026</span> Joshua. All rights reserved.</span>
+          <a href="#hero">Back to top ↑</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
