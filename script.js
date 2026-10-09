@@ -265,9 +265,8 @@
   } else {
     var words = splitWords($("#heroTitle"));
     var tl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 0.15 });
-    tl.from(heroFades[0], { y: 20, opacity: 0, duration: 0.8 })
-      .from(words, { yPercent: 115, rotate: 4, duration: 1.1, stagger: 0.07 }, "-=0.5")
-      .from(heroFades.slice(1), { y: 24, opacity: 0, duration: 0.9, stagger: 0.12 }, "-=0.6");
+    tl.from(words, { yPercent: 115, rotate: 4, duration: 1.1, stagger: 0.07 })
+      .from(heroFades, { y: 24, opacity: 0, duration: 0.9, stagger: 0.12 }, "-=0.6");
 
     // Gentle parallax: hero text drifts up and fades as you scroll away
     gsap.to(".hero__inner", {

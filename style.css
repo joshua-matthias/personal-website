@@ -192,7 +192,7 @@ html.lenis, html.lenis body { height: auto; }
 /* each word is wrapped so it can slide up from a mask */
 .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
 .word__inner { display: inline-block; will-change: transform; }
-.hero__sub { font-size: clamp(1.05rem, 1.8vw, 1.35rem); color: var(--text); max-width: 46ch; margin-bottom: 40px; opacity: 0.9; }
+.hero__sub { font-size: clamp(1.05rem, 1.8vw, 1.35rem); color: var(--text); max-width: 52ch; margin-bottom: 40px; opacity: 0.9; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
 .scroll-hint {
