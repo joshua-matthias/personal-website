@@ -115,6 +115,70 @@
   }
 
   /* =================================================================
+     CASE STUDY POP-UP
+     Clicking a project card (or its "Read case study" button) opens the
+     <template> whose id matches the card's data-case.
+     ================================================================= */
+  var modal = $("#caseModal");
+  var caseContent = $("#caseContent");
+  var caseIds = $$("template[id^='case-']").map(function (t) { return t.id; });
+  var currentCase = null, lastFocus = null;
+
+  function showCase(id) {
+    var tpl = document.getElementById(id);
+    if (!tpl) return;
+    currentCase = id;
+    caseContent.innerHTML = "";
+    caseContent.appendChild(tpl.content.cloneNode(true));
+    var title = $(".cs-title", caseContent);
+    if (title) title.id = "caseTitle";
+    $("#caseCrumb").textContent = tpl.dataset.title || "";
+    caseContent.scrollTop = 0;
+  }
+  function openCase(id) {
+    lastFocus = document.activeElement;
+    showCase(id);
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.style.overflow = "hidden";
+    if (lenis) lenis.stop();
+    $("#caseClose").focus();
+  }
+  function closeCase() {
+    if (!modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.documentElement.style.overflow = "";
+    if (lenis) lenis.start();
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  $$("[data-case]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      if (el.tagName === "ARTICLE" && e.target.closest("a, button")) return; // the button handles its own click
+      openCase(el.dataset.case);
+    });
+  });
+  $("#caseClose").addEventListener("click", closeCase);
+  $("#caseNext").addEventListener("click", function () {
+    var i = caseIds.indexOf(currentCase);
+    showCase(caseIds[(i + 1) % caseIds.length]);
+    $("#caseContent").scrollTo({ top: 0 });
+  });
+  modal.addEventListener("click", function (e) { if (e.target.hasAttribute("data-close")) closeCase(); });
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("is-open")) return;
+    if (e.key === "Escape") closeCase();
+    if (e.key === "Tab") { // keep keyboard focus inside the pop-up
+      var f = $$("a[href], button", modal).filter(function (n) { return n.offsetParent !== null; });
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* =================================================================
      3. HERO BACKGROUND (Vanta Globe)
         - Skipped on weak devices / reduced motion (gradient used instead)
         - Destroyed when the hero leaves the screen, rebuilt when it returns

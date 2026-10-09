@@ -24,6 +24,13 @@ Open `index.html`. Change the words between the tags, for example:
 - **Colours:** at the top of `style.css`, the `:root` block holds all the colours.
 - **3D background colours:** at the top of `script.js`, in the `SETTINGS` block.
 
+## Edit the case study pop-ups
+Click a project card on the site and a pop-up opens with the full story. Each pop-up is a
+`<template id="case-...">` block near the bottom of `index.html` (search for `CASE STUDY POP-UPS`).
+Edit the headings, text, role, tools and the "Visit" link inside it.
+To add a new one: copy a `<template>` block, give it a new `id`, and put the same id on your
+new card (both `data-case="..."` spots on that card).
+
 ## Swap images
 All pictures live in the `images` folder.
 1. Pick your new picture. Photos in **.jpg** or **.webp** are best (keep each under ~500 KB so the page loads fast).
