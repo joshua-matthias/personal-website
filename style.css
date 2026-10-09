@@ -249,7 +249,11 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
 
 /* ---------- 4. Side Quests (playful) ---------- */
-.sq { background: linear-gradient(180deg, var(--navy-950), #0a0f33 50%, var(--navy-950)); overflow: hidden; padding: 0; }
+.sq { background: #000; overflow: hidden; padding: 0; }
+/* Soft edges so the pure black blends into the navy sections above and below */
+.sq::before, .sq::after { content: ""; position: absolute; left: 0; right: 0; height: 160px; z-index: 0; pointer-events: none; }
+.sq::before { top: 0; background: linear-gradient(var(--navy-950), transparent); }
+.sq::after { bottom: 0; background: linear-gradient(transparent, var(--navy-950)); }
 .sq__pin { position: relative; padding: clamp(88px, 12vw, 140px) 0; }
 .sq__galaxy { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.6s ease; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
 .sq__galaxy.is-live { opacity: 1; }
@@ -257,7 +261,6 @@ html.lenis, html.lenis body { height: auto; }
 .sq__head { margin-bottom: 56px; }
 .sq__shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .shape { position: absolute; display: block; }
-.shape--ring { width: 220px; height: 220px; border: 2px dashed rgba(34, 211, 238, 0.4); border-radius: 50%; top: 8%; right: 10%; }
 .shape--blob { width: 260px; height: 260px; background: radial-gradient(circle, rgba(139, 92, 246, 0.45), transparent 70%); border-radius: 50%; bottom: 10%; left: 4%; filter: blur(20px); }
 .shape--plus { top: 55%; right: 6%; font-family: var(--font-head); font-size: 5rem; color: rgba(34, 211, 238, 0.5); line-height: 1; }
 .shape--dot { width: 18px; height: 18px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 24px var(--violet); top: 30%; left: 46%; }
@@ -431,3 +434,32 @@ button.card__link { background: none; border: 0; padding: 0; font: inherit; font
 .hero__title, .hero__sub { text-shadow: 0 2px 30px rgba(5, 11, 31, 0.75), 0 0 6px rgba(5, 11, 31, 0.5); }
 .hero__title .grad, .hero__title .grad .word__inner { filter: drop-shadow(0 2px 14px rgba(5, 11, 31, 0.6)); }
 .hero__title .grad, .hero__title .grad .word__inner { text-shadow: none; }
+
+/* Dotted rings on the join between Work and Side Quests */
+.seam { position: relative; height: 0; z-index: 3; pointer-events: none; }
+.seam__ring { position: absolute; right: clamp(24px, 10%, 180px); top: -130px; width: 260px; height: 260px; border: 2px dashed rgba(34, 211, 238, 0.5); border-radius: 50%; }
+.seam__ring--in { right: calc(clamp(24px, 10%, 180px) + 50px); top: -80px; width: 160px; height: 160px; border: 1.5px dotted rgba(139, 92, 246, 0.7); }
+@media (max-width: 700px) { .seam__ring { width: 180px; height: 180px; top: -90px; } .seam__ring--in { width: 110px; height: 110px; top: -55px; right: calc(clamp(24px, 10%, 180px) + 35px); } }
+
+/* Small scroll-responsive decorations */
+.section > .container { position: relative; z-index: 1; }
+.decos { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.deco { position: absolute; display: block; }
+.deco--plus { font-family: var(--font-head); font-size: 3.4rem; line-height: 1; color: rgba(34, 211, 238, 0.45); }
+.deco--ring { width: 86px; height: 86px; border-radius: 50%; border: 1.5px dashed rgba(139, 92, 246, 0.55); }
+.deco--dot { width: 14px; height: 14px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 22px var(--cyan); }
+.deco--dots { width: 110px; height: 110px; background-image: radial-gradient(rgba(34, 211, 238, 0.5) 1.6px, transparent 2px); background-size: 22px 22px; }
+@media (max-width: 700px) { .deco--dots, .deco--ring { opacity: 0.5; } }
+
+/* Scroll progress line */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 150; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--cyan), var(--blue), var(--violet)); box-shadow: 0 0 12px rgba(34, 211, 238, 0.6); pointer-events: none; }
+
+/* Back-to-top button with progress ring */
+.totop { position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 120; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: rgba(5, 11, 31, 0.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 0; color: var(--white); font-size: 1.15rem; opacity: 0; transform: translateY(14px) scale(0.9); pointer-events: none; transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), box-shadow 0.3s; }
+.totop.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.totop:hover { box-shadow: 0 0 28px -4px rgba(34, 211, 238, 0.7); }
+.totop svg { position: absolute; inset: 2px; width: 48px; height: 48px; transform: rotate(-90deg); }
+.totop circle { fill: none; stroke-width: 2.5; }
+.totop__track { stroke: rgba(255, 255, 255, 0.12); }
+.totop__bar { stroke: var(--cyan); stroke-linecap: round; stroke-dasharray: 132; stroke-dashoffset: 132; }
+.totop span { position: relative; }

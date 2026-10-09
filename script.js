@@ -276,6 +276,25 @@
   })();
 
   /* =================================================================
+     SCROLL PROGRESS LINE + BACK-TO-TOP BUTTON
+     ================================================================= */
+  (function () {
+    var bar = $("#progress"), top = $("#toTop"), ring = $("#toTopBar"), ticking = false;
+    function update() {
+      ticking = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      bar.style.transform = "scaleX(" + p + ")";
+      ring.style.strokeDashoffset = String(132 * (1 - p));
+      top.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.6);
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    top.addEventListener("click", function () { goTo("#hero"); });
+    update();
+  })();
+
+  /* =================================================================
      GALAXY BACKGROUND (Side Quests section)
      A WebGL star field. Settings are the ones from the original design.
      It only draws while the section is on screen, and is skipped for
@@ -634,16 +653,19 @@ void main() {
     });
   });
 
-  // Floating shapes at different speeds (layered parallax). Works on all screen sizes.
+  // Floating shapes and small decorations drift at different speeds as you scroll (layered parallax)
   mm.add("(prefers-reduced-motion: no-preference)", function () {
-    $$(".shape").forEach(function (s) {
-      gsap.to(s, {
-        y: parseFloat(s.dataset.speed || 100), ease: "none",
-        scrollTrigger: { trigger: "#sidequests", start: "top bottom", end: "bottom top", scrub: true }
+    $$(".shape, .deco").forEach(function (el) {
+      var host = el.classList.contains("deco") ? el.closest("section") : $("#sidequests");
+      gsap.to(el, {
+        y: parseFloat(el.dataset.speed || 100), rotate: parseFloat(el.dataset.rotate || 0), ease: "none",
+        scrollTrigger: { trigger: host, start: "top bottom", end: "bottom top", scrub: true }
       });
     });
-    gsap.to(".shape--ring", { rotate: 180, ease: "none",
-      scrollTrigger: { trigger: "#sidequests", start: "top bottom", end: "bottom top", scrub: true } });
+    // The two dotted rings between Work and Side Quests turn in opposite directions
+    var seamST = { trigger: ".seam", start: "top bottom", end: "bottom top", scrub: true };
+    gsap.to(".seam__ring:not(.seam__ring--in)", { rotate: 200, ease: "none", scrollTrigger: seamST });
+    gsap.to(".seam__ring--in", { rotate: -260, ease: "none", scrollTrigger: seamST });
   });
 
   // Re-measure once images and fonts have fully loaded

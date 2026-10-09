@@ -68,6 +68,15 @@
     </nav>
   </header>
 
+  <!-- Thin line at the top that fills as you scroll down the page -->
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- Round "back to top" button with a progress ring (appears after the first screen) -->
+  <button type="button" class="totop" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><circle class="totop__track" cx="24" cy="24" r="21"/><circle class="totop__bar" id="toTopBar" cx="24" cy="24" r="21"/></svg>
+    <span>↑</span>
+  </button>
+
   <main>
     <!-- ===================== 1. HERO ===================== -->
     <section class="hero" id="hero">
@@ -101,6 +110,12 @@
 
     <!-- ===================== 2. ABOUT ===================== -->
     <section class="section about" id="about">
+      <!-- Little decorations that move as you scroll -->
+      <div class="decos" aria-hidden="true">
+        <span class="deco deco--plus" data-speed="-120" data-rotate="90" style="left:3%;top:10%">+</span>
+        <span class="deco deco--dots" data-speed="90" style="right:3%;top:48%"></span>
+        <span class="deco deco--ring" data-speed="-70" data-rotate="120" style="left:42%;bottom:6%"></span>
+      </div>
       <div class="container about__grid">
 
         <div class="about__photo reveal">
@@ -147,6 +162,13 @@
 
     <!-- ===================== 3. WORK ===================== -->
     <section class="section work" id="work">
+      <!-- Little decorations that move as you scroll -->
+      <div class="decos" aria-hidden="true">
+        <span class="deco deco--dots" data-speed="-100" style="right:4%;top:12%"></span>
+        <span class="deco deco--dot" data-speed="140" style="left:6%;top:38%"></span>
+        <span class="deco deco--plus" data-speed="-90" data-rotate="-90" style="left:2%;bottom:10%">+</span>
+        <span class="deco deco--ring" data-speed="110" data-rotate="-140" style="right:6%;bottom:6%"></span>
+      </div>
       <div class="container">
         <p class="eyebrow reveal">Selected work</p>
         <h2 class="section-title reveal">Things I've <span class="grad">made &amp; shipped.</span></h2>
@@ -222,11 +244,13 @@
       </div>
     </section>
 
+    <!-- Dotted rings sitting on the join between Work and Side Quests (they turn as you scroll) -->
+    <div class="seam" aria-hidden="true"><span class="seam__ring"></span><span class="seam__ring seam__ring--in"></span></div>
+
     <!-- ===================== 4. SIDE QUESTS ===================== -->
     <section class="section sq" id="sidequests">
       <!-- Floating shapes that drift at different speeds (parallax) -->
       <div class="sq__shapes" aria-hidden="true">
-        <span class="shape shape--ring" data-speed="-160"></span>
         <span class="shape shape--blob" data-speed="120"></span>
         <span class="shape shape--plus" data-speed="-80">+</span>
         <span class="shape shape--dot" data-speed="200"></span>
@@ -274,6 +298,13 @@
 
     <!-- ===================== 5. CONTACT ===================== -->
     <section class="section contact" id="contact">
+      <!-- Little decorations that move as you scroll -->
+      <div class="decos" aria-hidden="true">
+        <span class="deco deco--ring" data-speed="-120" data-rotate="160" style="left:7%;top:18%"></span>
+        <span class="deco deco--dot" data-speed="130" style="right:12%;top:26%"></span>
+        <span class="deco deco--plus" data-speed="-80" data-rotate="90" style="right:6%;bottom:22%">+</span>
+        <span class="deco deco--dots" data-speed="80" style="left:4%;bottom:26%"></span>
+      </div>
       <div class="contact__glow" aria-hidden="true"></div>
       <div class="container contact__inner">
         <p class="eyebrow reveal">Contact</p>
