@@ -296,8 +296,8 @@
       scale: 1.25, duration: 1.8, ease: "power3.out",
       scrollTrigger: { trigger: ".about__photo", start: "top 85%", once: true }
     });
-    gsap.to(".about__photo img", {
-      yPercent: 8, ease: "none",
+    gsap.fromTo(".about__photo img", { yPercent: -5 }, {
+      yPercent: 5, ease: "none",
       scrollTrigger: { trigger: ".about__photo", start: "top bottom", end: "bottom top", scrub: true }
     });
 
