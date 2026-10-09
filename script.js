@@ -18,7 +18,9 @@
   var GRID_IMAGES = [
     "images/grid/finlab.jpg",
     "images/grid/award-night.jpg",
+    "images/grid/mof.jpg",
     "images/grid/handshake.jpg",
+    "images/grid/vision-pro-team.jpg",
     "images/grid/apple-developer-center.jpg",
     "images/grid/expo.jpg",
     "images/grid/conference.jpg"
