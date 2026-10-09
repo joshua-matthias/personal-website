@@ -3,7 +3,7 @@
    What this file does, in order:
      1. Sets up smooth scrolling (Lenis) and links it to GSAP ScrollTrigger
      2. Makes the nav bar work (menu, smooth gliding links, current-section highlight)
-     3. Runs the 3D hero background (Vanta Halo) and switches it off when you scroll past
+     3. Runs the 3D hero background (Vanta Globe) and switches it off when you scroll past
      4. Animates the hero headline, the About section, the Work cards and the filter
      5. Runs the Side Quests sideways scroll + floating parallax shapes
 
@@ -14,11 +14,13 @@
   "use strict";
 
   /* ---------------- SETTINGS  [EDIT ME if you like] ---------------- */
-  var HALO_COLORS = {
-    baseColor: 0x0a5cff,        // the glowing ring colour (electric blue)
-    backgroundColor: 0x050b1f,  // deep navy behind it
-    amplitudeFactor: 1.3,       // how wavy the halo is (higher = more movement)
-    size: 1.4                   // how big the halo is
+  var GLOBE_SETTINGS = {
+    color: 0xffffff,            // dots and lines
+    color2: 0xe11d1d,           // accent colour (red)
+    backgroundColor: 0x7a,      // background behind the globe
+    size: 0.8,                  // size of the dots
+    scale: 1.0,
+    scaleMobile: 1.0
   };
   var SMOOTH_SCROLL_SPEED = 0.1; // lower = silkier / slower (0.05 – 0.15 is a good range)
 
@@ -113,47 +115,48 @@
   }
 
   /* =================================================================
-     3. HERO BACKGROUND (Vanta Halo)
-        - Skipped on phones / weak devices / reduced motion (gradient used instead)
+     3. HERO BACKGROUND (Vanta Globe)
+        - Skipped on weak devices / reduced motion (gradient used instead)
         - Destroyed when the hero leaves the screen, rebuilt when it returns
      ================================================================= */
   var heroBg = $("#heroBg");
   var vanta = null;
-  var canUseHalo =
+  var canUseGlobe =
     typeof window.VANTA !== "undefined" && typeof window.THREE !== "undefined" &&
-    !!VANTA.HALO && !isSmallScreen && !isWeakDevice && !prefersReduced;
+    !!VANTA.GLOBE && !isWeakDevice && !prefersReduced;
 
-  function startHalo() {
-    if (vanta || !canUseHalo) return;
+  function startGlobe() {
+    if (vanta || !canUseGlobe) return;
     try {
-      vanta = VANTA.HALO({
+      vanta = VANTA.GLOBE({
         el: heroBg,
-        mouseControls: true, touchControls: false, gyroControls: false,
-        minHeight: 200, minWidth: 200,
-        baseColor: HALO_COLORS.baseColor,
-        backgroundColor: HALO_COLORS.backgroundColor,
-        amplitudeFactor: HALO_COLORS.amplitudeFactor,
-        size: HALO_COLORS.size,
-        xOffset: 0.18, yOffset: 0
+        mouseControls: true, touchControls: true, gyroControls: false,
+        minHeight: 200.0, minWidth: 200.0,
+        scale: GLOBE_SETTINGS.scale,
+        scaleMobile: GLOBE_SETTINGS.scaleMobile,
+        color: GLOBE_SETTINGS.color,
+        color2: GLOBE_SETTINGS.color2,
+        size: GLOBE_SETTINGS.size,
+        backgroundColor: GLOBE_SETTINGS.backgroundColor
       });
     } catch (err) {
       // If anything goes wrong, quietly fall back to the navy gradient.
-      vanta = null; canUseHalo = false;
+      vanta = null; canUseGlobe = false;
       heroBg.classList.add("is-lite");
     }
   }
-  function stopHalo() {
+  function stopGlobe() {
     if (!vanta) return;
     try { vanta.destroy(); } catch (e) { /* ignore */ }
     vanta = null;
   }
 
-  if (canUseHalo && "IntersectionObserver" in window) {
+  if (canUseGlobe && "IntersectionObserver" in window) {
     new IntersectionObserver(function (entries) {
-      entries[0].isIntersecting ? startHalo() : stopHalo();
+      entries[0].isIntersecting ? startGlobe() : stopGlobe();
     }, { threshold: 0 }).observe($("#hero"));
-  } else if (canUseHalo) {
-    startHalo();
+  } else if (canUseGlobe) {
+    startGlobe();
   } else {
     heroBg.classList.add("is-lite"); // gradient + soft glowing orbs
   }
