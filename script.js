@@ -300,18 +300,6 @@
       scrollTrigger: { trigger: ".about__photo", start: "top bottom", end: "bottom top", scrub: true }
     });
 
-    // Count-up numbers
-    $$("[data-count]").forEach(function (el) {
-      var end = parseFloat(el.dataset.count), suffix = el.dataset.suffix || "", obj = { v: 0 };
-      ScrollTrigger.create({
-        trigger: el, start: "top 90%", once: true,
-        onEnter: function () {
-          gsap.to(obj, { v: end, duration: 1.8, ease: "power2.out",
-            onUpdate: function () { el.textContent = Math.round(obj.v) + suffix; } });
-        }
-      });
-    });
-
     // Contact headline: word reveal
     var cWords = splitWords($("#contactTitle"));
     gsap.from(cWords, {
