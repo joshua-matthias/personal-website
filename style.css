@@ -400,3 +400,11 @@ button.card__link { background: none; border: 0; padding: 0; font: inherit; font
   .modal__crumb { font-size: 0.66rem; }
   #caseNext { padding: 9px 14px; }
 }
+
+/* Case study extras: photo pair and bullet list */
+.cs-fig.cs-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-height: none; border: 0; background: none; border-radius: 0; overflow: visible; }
+.cs-gallery img { height: 300px; max-height: none; border-radius: 16px; border: 1px solid var(--line); object-position: 50% 40%; }
+.cs-list { display: grid; gap: 10px; color: var(--muted); font-size: 1.05rem; max-width: 62ch; }
+.cs-list li { position: relative; padding-left: 26px; }
+.cs-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 10px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+@media (max-width: 560px) { .cs-fig.cs-gallery { grid-template-columns: 1fr; } }
