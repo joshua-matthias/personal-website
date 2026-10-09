@@ -259,6 +259,8 @@ html.lenis, html.lenis body { height: auto; }
 .card__link span { transition: transform 0.35s var(--ease); }
 .card__link:hover span { transform: translateX(6px); }
 .card__link.is-disabled { color: var(--muted); }
+.card__img--shot img { object-position: top center; }
+.win-pill { position: absolute; top: 14px; left: 14px; padding: 6px 14px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; background: rgba(5, 11, 31, 0.82); border: 1px solid rgba(34, 211, 238, 0.6); color: var(--cyan); backdrop-filter: blur(8px); box-shadow: 0 0 24px -6px rgba(34, 211, 238, 0.7); }
 .card--soon .card__img img { filter: saturate(0.5) brightness(0.8); }
 .soon-pill { position: absolute; top: 14px; right: 14px; padding: 6px 14px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(139, 92, 246, 0.25); border: 1px solid rgba(139, 92, 246, 0.6); color: #d9ccff; backdrop-filter: blur(8px); }
 
