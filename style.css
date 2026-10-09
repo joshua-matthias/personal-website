@@ -249,7 +249,7 @@ html.lenis, html.lenis body { height: auto; }
 .filter:hover { color: var(--white); border-color: rgba(34, 211, 238, 0.5); }
 .filter.is-active { color: var(--navy-950); background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 28px -4px rgba(34, 211, 238, 0.7); }
 
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
 .card {
   display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
@@ -268,14 +268,10 @@ html.lenis, html.lenis body { height: auto; }
 .card__link { margin-top: auto; font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; color: var(--cyan); display: inline-flex; gap: 8px; }
 .card__link span { transition: transform 0.35s var(--ease); }
 .card__link:hover span { transform: translateX(6px); }
-.card__link.is-disabled { color: var(--muted); }
 .card__img--shot img { object-position: top center; }
 .card__img--faces img { object-position: 50% 28%; }
 .win-pill { align-self: flex-start; margin-bottom: 14px; padding: 5px 12px; border-radius: 14px; font-size: 0.72rem; font-weight: 600; line-height: 1.4; background: rgba(34, 211, 238, 0.1); border: 1px solid rgba(34, 211, 238, 0.55); color: var(--cyan); box-shadow: 0 0 24px -8px rgba(34, 211, 238, 0.7); }
-.card--soon .card__img img { filter: saturate(0.5) brightness(0.8); }
-.soon-pill { position: absolute; top: 14px; right: 14px; padding: 6px 14px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em; background: rgba(139, 92, 246, 0.25); border: 1px solid rgba(139, 92, 246, 0.6); color: #d9ccff; backdrop-filter: blur(8px); }
 
-@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
 
 /* ---------- 4. Side Quests (playful) ---------- */
@@ -408,3 +404,27 @@ button.card__link { background: none; border: 0; padding: 0; font: inherit; font
 .cs-list li { position: relative; padding-left: 26px; }
 .cs-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 10px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
 @media (max-width: 560px) { .cs-fig.cs-gallery { grid-template-columns: 1fr; } }
+
+/* Spatial card photo + tAIste media */
+.card__img--group img { object-position: 50% 40%; }
+.cs-media { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 1fr 1fr; gap: 12px; margin-bottom: 40px; height: 420px; }
+.cs-media video { grid-row: 1 / span 2; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); background: #000; }
+.cs-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); }
+@media (max-width: 560px) { .cs-media { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; height: auto; } .cs-media video { grid-column: 1 / span 2; grid-row: auto; height: 360px; } .cs-media img { height: 160px; } }
+
+/* Single wide side quest (tAIste Labs) */
+.quest--wide { flex: 1 1 100%; display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; transform: rotate(-0.6deg); }
+.quest--wide:hover { transform: rotate(0deg) translateY(-8px); }
+.quest--wide .quest__text { position: relative; z-index: 1; }
+.quest--wide .quest__text p { max-width: 36ch; }
+.quest__label { font-family: var(--font-head); font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 8px; }
+.quest--wide h3 { font-size: clamp(2rem, 4vw, 3.2rem); }
+.quest__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.quest__photos { position: relative; height: clamp(280px, 30vw, 380px); }
+.quest__photos img { position: absolute; border-radius: 14px; border: 5px solid rgba(255, 255, 255, 0.92); box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7); object-fit: cover; transition: transform 0.6s var(--ease); }
+.quest__photos .p1 { width: 66%; aspect-ratio: 4/3; left: 0; top: 0; transform: rotate(-5deg); }
+.quest__photos .p2 { width: 48%; aspect-ratio: 3/4; right: 2%; bottom: 0; transform: rotate(5deg); }
+.quest--wide:hover .p1 { transform: rotate(-2deg) translate(-6px, -4px); }
+.quest--wide:hover .p2 { transform: rotate(2deg) translate(6px, 4px); }
+.sq__track:has(.quest:only-child) { width: auto; }
+@media (max-width: 899px) { .quest--wide { grid-template-columns: 1fr; } .quest__photos { height: 320px; } .quest--wide { transform: rotate(-0.4deg); } }

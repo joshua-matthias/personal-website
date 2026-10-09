@@ -157,13 +157,12 @@
           <button class="filter is-active" data-filter="all">All</button>
           <button class="filter" data-filter="marketing">Marketing</button>
           <button class="filter" data-filter="ai">AI Projects</button>
-          <button class="filter" data-filter="client">Client Work</button>
         </div>
 
         <!-- ============================================================
              PROJECT CARDS  [EDIT ME]
              To add a project: copy one <article class="card"> block, change
-             data-category (marketing / ai / client), the image, title,
+             data-category (marketing / ai), the image, title,
              description, tags and link.
              ============================================================ -->
         <div class="grid" id="workGrid">
@@ -209,35 +208,14 @@
           </article>
 
           <!-- AI 2 -->
-          <article class="card is-clickable" data-case="case-personal-ai"" data-category="ai">
-            <div class="card__img"><img src="images/project-4.svg" alt="" loading="lazy" width="800" height="500" /></div>
+          <article class="card is-clickable" data-case="case-spatial-notetaking" data-category="ai">
+            <div class="card__img card__img--group"><img src="images/spatial-notetaking.jpg" alt="Joshua and teammates at the Apple Developer Center in Singapore" loading="lazy" width="1200" height="900" /></div>
             <div class="card__body">
-              <h3>Personal AI Project [EDIT ME]</h3>
-              <p>One line about the idea and the tools you used.</p>
-              <ul class="tags"><li>Personal</li><li>Python</li></ul>
-              <button type="button" class="card__link" data-case="case-personal-ai">Read case study <span>→</span></button>
-            </div>
-          </article>
-
-          <!-- Client 1: coming soon -->
-          <article class="card card--soon" data-category="client">
-            <div class="card__img"><img src="images/project-5.svg" alt="" loading="lazy" width="800" height="500" /><span class="soon-pill">Coming soon</span></div>
-            <div class="card__body">
-              <h3>Client Work [EDIT ME]</h3>
-              <p>Case studies from my role at Growth-X Consulting will appear here.</p>
-              <ul class="tags"><li>Consulting</li><li>Strategy</li></ul>
-              <span class="card__link is-disabled">Coming soon</span>
-            </div>
-          </article>
-
-          <!-- Client 2: coming soon -->
-          <article class="card card--soon" data-category="client">
-            <div class="card__img"><img src="images/project-6.svg" alt="" loading="lazy" width="800" height="500" /><span class="soon-pill">Coming soon</span></div>
-            <div class="card__body">
-              <h3>Client Work [EDIT ME]</h3>
-              <p>Another engagement, shared once the project is complete.</p>
-              <ul class="tags"><li>Consulting</li><li>AI</li></ul>
-              <span class="card__link is-disabled">Coming soon</span>
+              <span class="win-pill">🍎 Apple Spatial Hack 2026</span>
+              <h3>Spatial Notetaking Tool</h3>
+              <p>A spatial note-taking app for Apple Vision Pro that lets you pull physical notes into your digital space.</p>
+              <ul class="tags"><li>Hackathon</li><li>Apple Vision Pro</li><li>Spatial computing</li></ul>
+              <button type="button" class="card__link" data-case="case-spatial-notetaking">Read case study <span>→</span></button>
             </div>
           </article>
 
@@ -264,31 +242,28 @@
         <div class="sq__viewport">
           <div class="sq__track" id="sqTrack">
 
-            <!-- [EDIT ME] Substack -->
-            <article class="quest quest--a">
+            <!-- ============================================================
+                 SIDE QUEST  [EDIT ME]
+                 With one side quest it shows as a wide block. Add more copies
+                 of an <article class="quest quest--a"> block (see README) and the
+                 section automatically becomes the sideways-scrolling row again.
+                 ============================================================ -->
+            <article class="quest quest--wide">
               <span class="quest__num">01</span>
-              <span class="quest__icon" aria-hidden="true">✍️</span>
-              <h3>Substack Writing</h3>
-              <p>Short essays on AI, trust and what actually works. [EDIT ME: describe your newsletter.]</p>
-              <a class="btn btn--primary btn--sm" href="https://substack.com" target="_blank" rel="noopener">Read the newsletter <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
-            </article>
-
-            <!-- [EDIT ME] Podcasts -->
-            <article class="quest quest--b">
-              <span class="quest__num">02</span>
-              <span class="quest__icon" aria-hidden="true">🎙️</span>
-              <h3>Podcasts</h3>
-              <p>Conversations with builders and thinkers. [EDIT ME: say whether you host, guest, or both.]</p>
-              <a class="btn btn--primary btn--sm" href="https://podcasts.apple.com" target="_blank" rel="noopener">Listen in <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
-            </article>
-
-            <!-- [EDIT ME] Community -->
-            <article class="quest quest--c">
-              <span class="quest__num">03</span>
-              <span class="quest__icon" aria-hidden="true">🌱</span>
-              <h3>Community Founder</h3>
-              <p>Bringing curious people together to learn and build. [EDIT ME: name your community.]</p>
-              <a class="btn btn--primary btn--sm" href="#" target="_blank" rel="noopener">Join the community <span class="btn__arrow">→</span></a> <!-- [EDIT ME] link -->
+              <div class="quest__text">
+                <span class="quest__icon" aria-hidden="true">🌱</span>
+                <p class="quest__label">AI community</p>
+                <h3>tAIste Labs</h3>
+                <p>Helping early career builders navigate AI well.</p>
+                <div class="quest__btns">
+                  <button type="button" class="btn btn--primary btn--sm" data-case="case-taiste-labs">Read the story <span class="btn__arrow">→</span></button>
+                  <a class="btn btn--ghost btn--sm" href="https://www.instagram.com/taistelabs/" target="_blank" rel="noopener">Instagram <span class="btn__arrow">↗</span></a>
+                </div>
+              </div>
+              <div class="quest__photos" aria-hidden="true">
+                <img class="p1" src="images/taiste-event.jpg" alt="" loading="lazy" />
+                <img class="p2" src="images/taiste-table.jpg" alt="" loading="lazy" />
+              </div>
             </article>
 
           </div>
@@ -421,24 +396,50 @@
       </div>
     </template>
 
-    <template id="case-personal-ai" data-title="Personal AI Project">
+    <template id="case-spatial-notetaking" data-title="Spatial Notetaking Tool">
       <section class="cs-hero">
-        <p class="cs-meta"><span class="cs-pill">AI Project</span><span class="cs-year">[EDIT ME] 2025</span></p>
-        <h3 class="cs-title">Personal AI Project</h3>
-        <p class="cs-sub">One line about the idea and the tools you used.</p>
+        <p class="cs-meta"><span class="cs-pill">AI Project</span><span class="cs-year">Apple Spatial Hack 2026</span></p>
+        <h3 class="cs-title">Spatial Notetaking Tool</h3>
+        <p class="cs-sub">A note-taking app for Apple Vision Pro that pulls your physical notes into your digital space.</p>
       </section>
       <div class="cs-body">
         <div class="cs-main">
-          
-          <section class="cs-sec"><h4>About the project</h4><p>[EDIT ME] What did you build and why?</p></section><section class="cs-sec"><h4>The challenge</h4><p>[EDIT ME] What problem were you solving?</p></section><section class="cs-sec"><h4>My approach</h4><p>[EDIT ME] How did you build it?</p></section><section class="cs-sec"><h4>The outcome</h4><p>[EDIT ME] What did you learn or achieve?</p></section>
+          <figure class="cs-fig"><img src="images/spatial-notetaking.jpg" alt="Joshua and teammates at the Apple Developer Center" loading="lazy" /></figure>
+          <section class="cs-sec"><h4>About the project</h4><p>Built at Apple Spatial Hack 2026, this is a spatial note-taking app for Apple Vision Pro. It allows users to pull physical notes into their digital space.</p></section><section class="cs-sec"><h4>The challenge</h4><p>[EDIT ME] What problem were you solving for people who take notes on paper?</p></section><section class="cs-sec"><h4>My approach</h4><p>[EDIT ME] How did you build it? What did you design, code or test, and how did the team split the work?</p></section><section class="cs-sec"><h4>The outcome</h4><p>[EDIT ME] What did you demo, and how did the judges and the audience react?</p></section>
         </div>
         <aside class="cs-side">
           <dl>
             <dt>My role</dt><dd class="cs-strong">[EDIT ME] Your role</dd>
-            <dt>Collaborators</dt><dd>Solo project</dd>
-            <dt>Tools &amp; skills</dt><dd><ul class="tags"><li>Personal</li><li>Python</li></ul></dd>
+            <dt>Collaborators</dt><dd>[EDIT ME] Teammates</dd>
+            <dt>Tools &amp; skills</dt><dd><ul class="tags"><li>Apple Vision Pro</li><li>Spatial computing</li><li>Hackathon</li></ul></dd>
           </dl>
-          <a class="btn btn--primary" href="#" target="_blank" rel="noopener">Visit the project <span class="btn__arrow">↗</span></a>
+          <a class="btn btn--primary" href="https://lnkd.in/p/gqpyesh3" target="_blank" rel="noopener">See the LinkedIn post <span class="btn__arrow">↗</span></a>
+        </aside>
+      </div>
+    </template>
+
+    <template id="case-taiste-labs" data-title="tAIste Labs">
+      <section class="cs-hero">
+        <p class="cs-meta"><span class="cs-pill">AI Community</span><span class="cs-year">[EDIT ME] 2025</span></p>
+        <h3 class="cs-title">tAIste Labs</h3>
+        <p class="cs-sub">Helping early career builders navigate AI well.</p>
+      </section>
+      <div class="cs-body">
+        <div class="cs-main">
+          <div class="cs-media">
+            <video controls playsinline preload="metadata" poster="videos/taiste-labs-poster.jpg"><source src="videos/taiste-labs.mp4" type="video/mp4" />Your browser can't play this video.</video>
+            <img src="images/taiste-event.jpg" alt="tAIste Labs members around a long table at a cafe event" loading="lazy" />
+            <img src="images/taiste-table.jpg" alt="Worksheets, notes and drinks on the table at a tAIste Labs event" loading="lazy" />
+          </div>
+          <section class="cs-sec"><h4>About the community</h4><p>tAIste Labs helps early career builders navigate AI well. [EDIT ME] Add a line on who comes and why you started it.</p></section><section class="cs-sec"><h4>What we do</h4><p>[EDIT ME] Describe your events and formats, such as the café sessions where members share what they are building.</p></section><section class="cs-sec"><h4>My role</h4><p>[EDIT ME] What do you do as founder? Hosting, programming, partnerships, growing the community.</p></section><section class="cs-sec"><h4>The outcome</h4><p>[EDIT ME] Add numbers if you have them: events held, members, builders helped.</p></section>
+        </div>
+        <aside class="cs-side">
+          <dl>
+            <dt>My role</dt><dd class="cs-strong">Founder</dd>
+            <dt>Collaborators</dt><dd>[EDIT ME] Co-organisers</dd>
+            <dt>Tools &amp; skills</dt><dd><ul class="tags"><li>Community building</li><li>Events</li><li>AI</li></ul></dd>
+          </dl>
+          <a class="btn btn--primary" href="https://www.instagram.com/taistelabs/" target="_blank" rel="noopener">Follow on Instagram <span class="btn__arrow">↗</span></a>
         </aside>
       </div>
     </template>

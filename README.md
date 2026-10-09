@@ -20,7 +20,7 @@ Open `index.html`. Change the words between the tags, for example:
 - **Email:** search for `mailto:` in the Contact section (the address appears twice on one line).
 - **LinkedIn / GitHub:** search for `linkedin.com` and `github.com` in the Contact section.
 - **Add a project:** copy a whole `<article class="card"> ... </article>` block and edit it.
-  Keep `data-category` as `marketing`, `ai` or `client` so the filter buttons work.
+  Keep `data-category` as `marketing` or `ai` so the filter buttons work.
 - **Colours:** at the top of `style.css`, the `:root` block holds all the colours.
 - **3D background colours:** at the top of `script.js`, in the `SETTINGS` block.
 
@@ -30,6 +30,10 @@ Click a project card on the site and a pop-up opens with the full story. Each po
 Edit the headings, text, role, tools and the "Visit" link inside it.
 To add a new one: copy a `<template>` block, give it a new `id`, and put the same id on your
 new card (both `data-case="..."` spots on that card).
+
+## Videos and side quests
+- The tAIste Labs video lives in the `videos` folder (`taiste-labs.mp4`). To change it, replace that file, or point the `<video>` tag in its pop-up at a new file name. Keep videos short (under ~10 MB) so the page stays quick.
+- Side Quests currently shows one block (tAIste Labs). To add more, copy an `<article class="quest ...">` block inside `sqTrack`. With two or more, the section turns back into a sideways-scrolling row.
 
 ## Swap images
 All pictures live in the `images` folder.

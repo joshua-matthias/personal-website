@@ -148,6 +148,7 @@
     if (!modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
+    $$("video", caseContent).forEach(function (v) { v.pause(); }); // stop any playing video
     document.documentElement.style.overflow = "";
     if (lenis) lenis.start();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
@@ -365,6 +366,7 @@
   // Desktop with motion allowed: pin the section and slide the cards sideways
   mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", function () {
     var track = $("#sqTrack");
+    if ($$(".quest").length < 2) return; // one side quest: no sideways scroll needed
     var distance = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 24); };
     gsap.to(track, {
       x: function () { return -distance(); },
