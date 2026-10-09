@@ -17,7 +17,7 @@ Once you've changed something, delete the `[EDIT ME]` note next to it.
 Open `index.html`. Change the words between the tags, for example:
 `<h3>Marketing Project One [EDIT ME]</h3>` becomes `<h3>My Real Campaign</h3>`.
 - **Links:** change `href="#"` to your real web address, e.g. `href="https://example.com/my-project"`.
-- **Email:** search for `hello@example.com` and change it (it appears twice on one line).
+- **Email:** search for `mailto:` in the Contact section (the address appears twice on one line).
 - **LinkedIn / GitHub:** search for `linkedin.com` and `github.com` in the Contact section.
 - **Add a project:** copy a whole `<article class="card"> ... </article>` block and edit it.
   Keep `data-category` as `marketing`, `ai` or `client` so the filter buttons work.
