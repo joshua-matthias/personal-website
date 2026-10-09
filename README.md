@@ -31,8 +31,7 @@ Edit the headings, text, role, tools and the "Visit" link inside it.
 To add a new one: copy a `<template>` block, give it a new `id`, and put the same id on your
 new card (both `data-case="..."` spots on that card).
 
-## Videos and side quests
-- The tAIste Labs video lives in the `videos` folder (`taiste-labs.mp4`). To change it, replace that file, or point the `<video>` tag in its pop-up at a new file name. Keep videos short (under ~10 MB) so the page stays quick.
+## Side quests
 - Side Quests currently shows one block (tAIste Labs). To add more, copy an `<article class="quest ...">` block inside `sqTrack`. With two or more, the section turns back into a sideways-scrolling row.
 
 ## Swap images

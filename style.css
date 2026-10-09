@@ -407,10 +407,10 @@ button.card__link { background: none; border: 0; padding: 0; font: inherit; font
 
 /* Spatial card photo + tAIste media */
 .card__img--group img { object-position: 50% 40%; }
-.cs-media { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 1fr 1fr; gap: 12px; margin-bottom: 40px; height: 420px; }
-.cs-media video { grid-row: 1 / span 2; width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); background: #000; }
-.cs-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); }
-@media (max-width: 560px) { .cs-media { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; height: auto; } .cs-media video { grid-column: 1 / span 2; grid-row: auto; height: 360px; } .cs-media img { height: 160px; } }
+.cs-media { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 40px; height: 300px; }
+.cs-media img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); transition: transform 0.6s var(--ease); }
+.cs-media img:hover { transform: scale(1.02); }
+@media (max-width: 560px) { .cs-media { height: 200px; } }
 
 /* Single wide side quest (tAIste Labs) */
 .quest--wide { flex: 1 1 100%; display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: center; transform: rotate(-0.6deg); }

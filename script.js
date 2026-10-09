@@ -148,7 +148,6 @@
     if (!modal.classList.contains("is-open")) return;
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
-    $$("video", caseContent).forEach(function (v) { v.pause(); }); // stop any playing video
     document.documentElement.style.overflow = "";
     if (lenis) lenis.start();
     if (lastFocus && lastFocus.focus) lastFocus.focus();
