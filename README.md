@@ -29,7 +29,7 @@ All pictures live in the `images` folder.
 1. Pick your new picture. Photos in **.jpg** or **.webp** are best (keep each under ~500 KB so the page loads fast).
 2. Put it in the `images` folder.
 3. Either save it with the **same name** as the placeholder (including the same file type, such as .svg), **or** open `index.html` and change the file name in the `src="images/..."` bit.
-   Example: `src="images/profile-placeholder.svg"` becomes `src="images/me.jpg"`.
+   Example: `src="images/profile.jpg"` becomes `src="images/me.jpg"`.
 
 Sizes that work well: profile photo 800 x 1000 px, project images 1200 x 750 px.
 Tip: `og-image.png` (1200 x 630 px) is the picture shown when your link is shared on LinkedIn, WhatsApp etc. Replace it with your own.
