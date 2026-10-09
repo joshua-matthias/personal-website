@@ -260,7 +260,10 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- 4. Side Quests (playful) ---------- */
 .sq { background: linear-gradient(180deg, var(--navy-950), #0a0f33 50%, var(--navy-950)); overflow: hidden; padding: 0; }
-.sq__pin { padding: clamp(88px, 12vw, 140px) 0; }
+.sq__pin { position: relative; padding: clamp(88px, 12vw, 140px) 0; }
+.sq__galaxy { position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity 1.6s ease; -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
+.sq__galaxy.is-live { opacity: 1; }
+.sq__galaxy canvas { display: block; width: 100%; height: 100%; }
 .sq__head { margin-bottom: 56px; }
 .sq__shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .shape { position: absolute; display: block; }

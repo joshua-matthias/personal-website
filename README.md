@@ -34,6 +34,9 @@ new card (both `data-case="..."` spots on that card).
 ## Side quests
 - Side Quests currently shows one block (tAIste Labs). To add more, copy an `<article class="quest ...">` block inside `sqTrack`. With two or more, the section turns back into a sideways-scrolling row.
 
+## Side Quests star background
+The moving stars behind the Side Quests section are drawn in `script.js` (search for `GALAXY`). The numbers there (speed, density, glow, twinkle and so on) are the settings you gave me. Change them to adjust the look, or lower `quality` if it ever feels slow on an old computer.
+
 ## Swap images
 All pictures live in the `images` folder.
 1. Pick your new picture. Photos in **.jpg** or **.webp** are best (keep each under ~500 KB so the page loads fast).
