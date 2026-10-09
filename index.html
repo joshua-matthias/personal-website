@@ -39,10 +39,7 @@
   <!-- ============================================================
        LIBRARIES (loaded from a CDN, nothing to install)
        Order matters. "defer" keeps them in order and keeps the page fast.
-       Three.js r134 is the version Vanta 0.5.24 is built for.
        ============================================================ -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.globe.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -76,8 +73,10 @@
     <section class="hero" id="hero">
       <!-- The 3D Vanta Globe effect draws itself in here. The CSS gradient is the fallback. -->
       <div class="hero__bg" id="heroBg" aria-hidden="true">
-        <span class="hero__glow hero__glow--a"></span>
-        <span class="hero__glow hero__glow--b"></span>
+        <!-- Tilted, drifting photo grid (built by script.js). Photos are listed in script.js under GRID_IMAGES. -->
+        <div class="gm" id="gm"></div>
+        <div class="gm__dim" id="gmDim"></div>
+        <div class="gm__fade"></div>
       </div>
       <div class="hero__fade" aria-hidden="true"></div>
 

@@ -22,7 +22,7 @@ Open `index.html`. Change the words between the tags, for example:
 - **Add a project:** copy a whole `<article class="card"> ... </article>` block and edit it.
   Keep `data-category` as `marketing` or `ai` so the filter buttons work.
 - **Colours:** at the top of `style.css`, the `:root` block holds all the colours.
-- **3D background colours:** at the top of `script.js`, in the `SETTINGS` block.
+- **Hero photo grid:** at the top of `script.js`, `GRID_IMAGES` is the list of photos and `GRID` holds the speed, tilt, dimming and so on. To add a photo, put it in `images/grid` and add its path to the list.
 
 ## Edit the case study pop-ups
 Click a project card on the site and a pop-up opens with the full story. Each pop-up is a

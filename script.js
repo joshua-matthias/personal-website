@@ -14,13 +14,24 @@
   "use strict";
 
   /* ---------------- SETTINGS  [EDIT ME if you like] ---------------- */
-  var GLOBE_SETTINGS = {
-    color: 0xffffff,            // dots and lines
-    color2: 0xe11d1d,           // accent colour (red)
-    backgroundColor: 0x7a,      // background behind the globe
-    size: 0.8,                  // size of the dots
-    scale: 1.0,
-    scaleMobile: 1.0
+  // Hero photo grid. Add or remove photos in the list. Each photo is shown in every row.   [EDIT ME]
+  var GRID_IMAGES = [
+    "images/grid/finlab.jpg",
+    "images/grid/award-night.jpg",
+    "images/grid/handshake.jpg",
+    "images/grid/apple-developer-center.jpg",
+    "images/grid/expo.jpg",
+    "images/grid/conference.jpg"
+  ];
+  var GRID = {
+    rows: 3, aspectRatio: 1.33, gap: 16, radius: 14, angle: -12,
+    speed: 24,            // how fast the rows drift (pixels per second)
+    direction: "alternate", // "left", "right" or "alternate"
+    parallax: 0.5,        // how much the rows slide when you move the mouse
+    spotlight: 0.6,       // how much brighter the area under the mouse gets
+    dim: 0.35,            // how dark the photos are overall
+    fade: 0.5,            // how strongly the edges fade into navy
+    grayscale: false
   };
   var SMOOTH_SCROLL_SPEED = 0.1; // lower = silkier / slower (0.05 – 0.15 is a good range)
 
@@ -179,51 +190,88 @@
   });
 
   /* =================================================================
-     3. HERO BACKGROUND (Vanta Globe)
-        - Skipped on weak devices / reduced motion (gradient used instead)
-        - Destroyed when the hero leaves the screen, rebuilt when it returns
+     3. HERO BACKGROUND: tilted, drifting photo grid
+        - Rows of photos slide sideways (alternating directions)
+        - Mouse: rows shift slightly and a spotlight brightens the photos
+        - Stops moving when the hero is off screen, and for "reduce motion"
      ================================================================= */
-  var heroBg = $("#heroBg");
-  var vanta = null;
-  var canUseGlobe =
-    typeof window.VANTA !== "undefined" && typeof window.THREE !== "undefined" &&
-    !!VANTA.GLOBE && !isWeakDevice && !prefersReduced;
+  (function initGrid() {
+    var root = $("#gm"), dimEl = $("#gmDim"), hero = $("#hero");
+    if (!root || !GRID_IMAGES.length) return;
+    var rows = [], period = 0, tileW = 0, running = false, raf = 0, last = 0;
+    var mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, on: 0, onT: 0 };
 
-  function startGlobe() {
-    if (vanta || !canUseGlobe) return;
-    try {
-      vanta = VANTA.GLOBE({
-        el: heroBg,
-        mouseControls: true, touchControls: true, gyroControls: false,
-        minHeight: 200.0, minWidth: 200.0,
-        scale: GLOBE_SETTINGS.scale,
-        scaleMobile: GLOBE_SETTINGS.scaleMobile,
-        color: GLOBE_SETTINGS.color,
-        color2: GLOBE_SETTINGS.color2,
-        size: GLOBE_SETTINGS.size,
-        backgroundColor: GLOBE_SETTINGS.backgroundColor
-      });
-    } catch (err) {
-      // If anything goes wrong, quietly fall back to the navy gradient.
-      vanta = null; canUseGlobe = false;
-      heroBg.classList.add("is-lite");
+    // Darkness: bright under the mouse (spotlight), darker everywhere else
+    function setDim() {
+      var inner = GRID.dim * (1 - GRID.spotlight);
+      dimEl.style.background =
+        "radial-gradient(circle 380px at var(--mx, -999px) var(--my, -999px), rgba(5,11,31," + inner.toFixed(3) + ") 0%, rgba(5,11,31," + GRID.dim + ") 100%), rgba(5,11,31," + GRID.dim + ")";
     }
-  }
-  function stopGlobe() {
-    if (!vanta) return;
-    try { vanta.destroy(); } catch (e) { /* ignore */ }
-    vanta = null;
-  }
+    function build() {
+      root.innerHTML = ""; rows = [];
+      var H = hero.clientHeight, W = hero.clientWidth;
+      var boxW = W * 1.6, boxH = H * 1.6;
+      root.style.cssText = "width:" + boxW + "px;height:" + boxH + "px;transform:translate(-50%,-50%) rotate(" + GRID.angle + "deg);gap:" + GRID.gap + "px";
+      root.classList.toggle("is-gray", !!GRID.grayscale);
+      var tileH = (Math.min(boxH, H * 1.45) - GRID.gap * (GRID.rows - 1)) / GRID.rows;
+      tileW = tileH * GRID.aspectRatio;
+      var step = tileW + GRID.gap, n = GRID_IMAGES.length;
+      period = n * step;
+      var count = Math.ceil((boxW + period) / step) + 1;
+      for (var r = 0; r < GRID.rows; r++) {
+        var row = document.createElement("div");
+        row.className = "gm__row";
+        row.style.cssText = "height:" + tileH + "px;gap:" + GRID.gap + "px";
+        for (var i = 0; i < count; i++) {
+          var img = document.createElement("img");
+          img.src = GRID_IMAGES[(i + r * 2) % n];
+          img.alt = ""; img.decoding = "async"; img.draggable = false;
+          img.style.cssText = "width:" + tileW + "px;height:" + tileH + "px;border-radius:" + GRID.radius + "px";
+          row.appendChild(img);
+        }
+        var dir = GRID.direction === "left" ? -1 : GRID.direction === "right" ? 1 : (r % 2 ? 1 : -1);
+        rows.push({ el: row, dir: dir, off: 0 });
+        root.appendChild(row);
+      }
+      draw();
+    }
+    function draw() {
+      var mx = (mouse.x - 0.5) * GRID.parallax * 140;
+      rows.forEach(function (row, i) {
+        var base = row.dir < 0 ? -(row.off % period) : -period + (row.off % period);
+        var shift = mx * (i % 2 ? 1 : -1);
+        row.el.style.transform = "translate3d(" + (base + shift) + "px,0,0)";
+      });
+      var r = hero.getBoundingClientRect();
+      dimEl.style.setProperty("--mx", (mouse.x * r.width) + "px");
+      dimEl.style.setProperty("--my", ((1 - mouse.y) * r.height) + "px");
+      dimEl.style.opacity = 0.35 + 0.65 * mouse.on;
+    }
+    function frame(ms) {
+      var dt = Math.min(0.05, (ms - last) / 1000); last = ms;
+      rows.forEach(function (row) { row.off += GRID.speed * dt; });
+      mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
+      mouse.on += (mouse.onT - mouse.on) * 0.06;
+      draw();
+      raf = requestAnimationFrame(frame);
+    }
+    function start() { if (running) return; running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
 
-  if (canUseGlobe && "IntersectionObserver" in window) {
-    new IntersectionObserver(function (entries) {
-      entries[0].isIntersecting ? startGlobe() : stopGlobe();
-    }, { threshold: 0 }).observe($("#hero"));
-  } else if (canUseGlobe) {
-    startGlobe();
-  } else {
-    heroBg.classList.add("is-lite"); // gradient + soft glowing orbs
-  }
+    setDim(); build();
+    root.classList.add("is-ready");
+    if (prefersReduced) { mouse.onT = 0; return; } // photos stay still
+    hero.addEventListener("mousemove", function (e) {
+      var r = hero.getBoundingClientRect();
+      mouse.tx = (e.clientX - r.left) / r.width; mouse.ty = 1 - (e.clientY - r.top) / r.height; mouse.onT = 1;
+    });
+    hero.addEventListener("mouseleave", function () { mouse.onT = 0; });
+    var t;
+    window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(build, 200); });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) { entries[0].isIntersecting ? start() : stop(); }).observe(hero);
+    } else { start(); }
+  })();
 
   /* =================================================================
      GALAXY BACKGROUND (Side Quests section)
