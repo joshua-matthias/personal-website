@@ -153,37 +153,12 @@ html.lenis, html.lenis body { height: auto; }
   .nav__links a { font-family: var(--font-head); font-size: 1.8rem; color: var(--white); padding: 10px 24px; }
 }
 
-/* ---------- 1. Hero ---------- */
-.hero {
-  position: relative; min-height: 100vh; min-height: 100svh;
-  display: flex; align-items: center; overflow: hidden;
-}
-.hero__bg {
-  position: absolute; inset: 0; z-index: 0;
-  /* Fallback navy gradient: shows if the 3D effect can't load */
-  background:
-    radial-gradient(60% 60% at 75% 40%, rgba(29, 91, 255, 0.35), transparent 70%),
-    radial-gradient(40% 40% at 20% 80%, rgba(139, 92, 246, 0.22), transparent 70%),
-    linear-gradient(180deg, var(--navy-900), var(--navy-950));
-}
+/* ---------- 1. Landing room: see room.css ---------- */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; }
 
-.hero__fade {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(5, 11, 31, 0.5) 0%, rgba(5, 11, 31, 0.1) 60%, transparent 100%),
-    linear-gradient(180deg, transparent 70%, var(--navy-950) 100%);
-}
-.hero__inner { position: relative; z-index: 2; padding-top: 90px; padding-bottom: 90px; }
-.hero__title {
-  font-family: var(--font-head); font-weight: 700; color: var(--white);
-  font-size: clamp(2rem, 7vw, 5.6rem); line-height: 1.04; letter-spacing: -0.03em;
-  max-width: 17ch; margin-bottom: 28px;
-}
 /* each word is wrapped so it can slide up from a mask */
 .word { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.12em; margin-bottom: -0.12em; }
 .word__inner { display: inline-block; will-change: transform; }
-.hero__sub { font-size: clamp(1.05rem, 1.8vw, 1.35rem); color: var(--text); max-width: 52ch; margin-bottom: 40px; opacity: 0.9; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
 .scroll-hint {
   position: absolute; z-index: 2; bottom: 28px; left: 50%; transform: translateX(-50%);
@@ -423,17 +398,6 @@ button.card__link { background: none; border: 0; padding: 0; font: inherit; font
 @media (max-width: 520px) { .infocards { grid-template-columns: 1fr; } }
 
 /* Hero photo grid */
-.hero__bg { overflow: hidden; }
-.gm { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; justify-content: center; opacity: 0; transition: opacity 1.4s ease; }
-.gm.is-ready { opacity: 1; }
-.gm.is-gray img { filter: grayscale(1); }
-.gm__row { display: flex; flex: none; width: max-content; will-change: transform; }
-.gm__row img { flex: none; object-fit: cover; object-position: 50% 30%; display: block; user-select: none; -webkit-user-drag: none; }
-.gm__dim { position: absolute; inset: 0; pointer-events: none; }
-.gm__fade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(5, 11, 31, 0.85) 100%); }
-.hero__title, .hero__sub { text-shadow: 0 2px 30px rgba(5, 11, 31, 0.75), 0 0 6px rgba(5, 11, 31, 0.5); }
-.hero__title .grad, .hero__title .grad .word__inner { filter: drop-shadow(0 2px 14px rgba(5, 11, 31, 0.6)); }
-.hero__title .grad, .hero__title .grad .word__inner { text-shadow: none; }
 
 /* Dotted rings on the join between Work and Side Quests */
 .seam { position: relative; height: 0; z-index: 3; pointer-events: none; }

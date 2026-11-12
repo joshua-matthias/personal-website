@@ -3,8 +3,8 @@
    What this file does, in order:
      1. Sets up smooth scrolling (Lenis) and links it to GSAP ScrollTrigger
      2. Makes the nav bar work (menu, smooth gliding links, current-section highlight)
-     3. Runs the 3D hero background (Vanta Globe) and switches it off when you scroll past
-     4. Animates the hero headline, the About section, the Work cards and the filter
+     3. Opens the case study pop-ups (the landing room in room.js uses this too)
+     4. Animates the About section, the Work cards and the filter
      5. Runs the Side Quests sideways scroll + floating parallax shapes
 
    Most things you'll want to tweak are in the SETTINGS block just below.
@@ -14,27 +14,6 @@
   "use strict";
 
   /* ---------------- SETTINGS  [EDIT ME if you like] ---------------- */
-  // Hero photo grid. Add or remove photos in the list. Each photo is shown in every row.   [EDIT ME]
-  var GRID_IMAGES = [
-    "images/grid/finlab.jpg",
-    "images/grid/award-night.jpg",
-    "images/grid/mof.jpg",
-    "images/grid/handshake.jpg",
-    "images/grid/vision-pro-team.jpg",
-    "images/grid/apple-developer-center.jpg",
-    "images/grid/expo.jpg",
-    "images/grid/conference.jpg"
-  ];
-  var GRID = {
-    rows: 3, aspectRatio: 1.33, gap: 16, radius: 14, angle: -12,
-    speed: 24,            // how fast the rows drift (pixels per second)
-    direction: "alternate", // "left", "right" or "alternate"
-    parallax: 0.5,        // how much the rows slide when you move the mouse
-    spotlight: 0.6,       // how much brighter the area under the mouse gets
-    dim: 0.35,            // how dark the photos are overall
-    fade: 0.5,            // how strongly the edges fade into navy
-    grayscale: false
-  };
   var SMOOTH_SCROLL_SPEED = 0.1; // lower = silkier / slower (0.05 – 0.15 is a good range)
 
   /* ---------------- Helpers ---------------- */
@@ -172,6 +151,7 @@
       openCase(el.dataset.case);
     });
   });
+  window.JMOpenCase = openCase; // lets the landing room (room.js) open a project
   $("#caseClose").addEventListener("click", closeCase);
   $("#caseNext").addEventListener("click", function () {
     var i = caseIds.indexOf(currentCase);
@@ -190,90 +170,6 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     }
   });
-
-  /* =================================================================
-     3. HERO BACKGROUND: tilted, drifting photo grid
-        - Rows of photos slide sideways (alternating directions)
-        - Mouse: rows shift slightly and a spotlight brightens the photos
-        - Stops moving when the hero is off screen, and for "reduce motion"
-     ================================================================= */
-  (function initGrid() {
-    var root = $("#gm"), dimEl = $("#gmDim"), hero = $("#hero");
-    if (!root || !GRID_IMAGES.length) return;
-    var rows = [], period = 0, tileW = 0, running = false, raf = 0, last = 0;
-    var mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5, on: 0, onT: 0 };
-
-    // Darkness: bright under the mouse (spotlight), darker everywhere else
-    function setDim() {
-      var inner = GRID.dim * (1 - GRID.spotlight);
-      dimEl.style.background =
-        "radial-gradient(circle 380px at var(--mx, -999px) var(--my, -999px), rgba(5,11,31," + inner.toFixed(3) + ") 0%, rgba(5,11,31," + GRID.dim + ") 100%), rgba(5,11,31," + GRID.dim + ")";
-    }
-    function build() {
-      root.innerHTML = ""; rows = [];
-      var H = hero.clientHeight, W = hero.clientWidth;
-      var boxW = W * 1.6, boxH = H * 1.6;
-      root.style.cssText = "width:" + boxW + "px;height:" + boxH + "px;transform:translate(-50%,-50%) rotate(" + GRID.angle + "deg);gap:" + GRID.gap + "px";
-      root.classList.toggle("is-gray", !!GRID.grayscale);
-      var tileH = (Math.min(boxH, H * 1.45) - GRID.gap * (GRID.rows - 1)) / GRID.rows;
-      tileW = tileH * GRID.aspectRatio;
-      var step = tileW + GRID.gap, n = GRID_IMAGES.length;
-      period = n * step;
-      var count = Math.ceil((boxW + period) / step) + 1;
-      for (var r = 0; r < GRID.rows; r++) {
-        var row = document.createElement("div");
-        row.className = "gm__row";
-        row.style.cssText = "height:" + tileH + "px;gap:" + GRID.gap + "px";
-        for (var i = 0; i < count; i++) {
-          var img = document.createElement("img");
-          img.src = GRID_IMAGES[(i + r * 2) % n];
-          img.alt = ""; img.decoding = "async"; img.draggable = false;
-          img.style.cssText = "width:" + tileW + "px;height:" + tileH + "px;border-radius:" + GRID.radius + "px";
-          row.appendChild(img);
-        }
-        var dir = GRID.direction === "left" ? -1 : GRID.direction === "right" ? 1 : (r % 2 ? 1 : -1);
-        rows.push({ el: row, dir: dir, off: 0 });
-        root.appendChild(row);
-      }
-      draw();
-    }
-    function draw() {
-      var mx = (mouse.x - 0.5) * GRID.parallax * 140;
-      rows.forEach(function (row, i) {
-        var base = row.dir < 0 ? -(row.off % period) : -period + (row.off % period);
-        var shift = mx * (i % 2 ? 1 : -1);
-        row.el.style.transform = "translate3d(" + (base + shift) + "px,0,0)";
-      });
-      var r = hero.getBoundingClientRect();
-      dimEl.style.setProperty("--mx", (mouse.x * r.width) + "px");
-      dimEl.style.setProperty("--my", ((1 - mouse.y) * r.height) + "px");
-      dimEl.style.opacity = 0.35 + 0.65 * mouse.on;
-    }
-    function frame(ms) {
-      var dt = Math.min(0.05, (ms - last) / 1000); last = ms;
-      rows.forEach(function (row) { row.off += GRID.speed * dt; });
-      mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
-      mouse.on += (mouse.onT - mouse.on) * 0.06;
-      draw();
-      raf = requestAnimationFrame(frame);
-    }
-    function start() { if (running) return; running = true; last = performance.now(); raf = requestAnimationFrame(frame); }
-    function stop() { running = false; cancelAnimationFrame(raf); }
-
-    setDim(); build();
-    root.classList.add("is-ready");
-    if (prefersReduced) { mouse.onT = 0; return; } // photos stay still
-    hero.addEventListener("mousemove", function (e) {
-      var r = hero.getBoundingClientRect();
-      mouse.tx = (e.clientX - r.left) / r.width; mouse.ty = 1 - (e.clientY - r.top) / r.height; mouse.onT = 1;
-    });
-    hero.addEventListener("mouseleave", function () { mouse.onT = 0; });
-    var t;
-    window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(build, 200); });
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) { entries[0].isIntersecting ? start() : stop(); }).observe(hero);
-    } else { start(); }
-  })();
 
   /* =================================================================
      SCROLL PROGRESS LINE + BACK-TO-TOP BUTTON
@@ -519,7 +415,7 @@ void main() {
      ================================================================= */
   if (!hasGSAP) return;
 
-  /* ---------- Hero headline: word-by-word reveal ---------- */
+  /* ---------- Word-by-word reveal helper (used by the Contact headline) ---------- */
   function splitWords(el) {
     // Wraps each word in a mask so it can slide up. Keeps the <span class="grad"> styling.
     var out = [], frag = document.createDocumentFragment();
@@ -545,22 +441,6 @@ void main() {
     el.appendChild(frag);
     el.setAttribute("aria-label", label);
     return out;
-  }
-
-  var heroFades = $$("[data-hero-fade]");
-  if (prefersReduced) {
-    gsap.from(heroFades.concat($("#heroTitle")), { opacity: 0, duration: 0.6 });
-  } else {
-    var words = splitWords($("#heroTitle"));
-    var tl = gsap.timeline({ defaults: { ease: "power4.out" }, delay: 0.15 });
-    tl.from(words, { yPercent: 115, rotate: 4, duration: 1.1, stagger: 0.07 })
-      .from(heroFades, { y: 24, opacity: 0, duration: 0.9, stagger: 0.12 }, "-=0.6");
-
-    // Gentle parallax: hero text drifts up and fades as you scroll away
-    gsap.to(".hero__inner", {
-      yPercent: -18, opacity: 0.2, ease: "none",
-      scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true }
-    });
   }
 
   /* ---------- Scroll reveals (About, headings, etc.) ---------- */

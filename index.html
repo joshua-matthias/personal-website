@@ -29,12 +29,13 @@
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="images/favicon-180.png" />
 
-  <!-- Fonts: Space Grotesk (headings) + Inter (body) -->
+  <!-- Fonts: Space Grotesk (headings) + Inter (body) + Caveat (handwriting on the notes) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="room.css" />
 
   <!-- ============================================================
        LIBRARIES (loaded from a CDN, nothing to install)
@@ -44,6 +45,7 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script defer src="script.js"></script>
+  <script defer src="room.js"></script>
 </head>
 
 <body>
@@ -78,32 +80,110 @@
   </button>
 
   <main>
-    <!-- ===================== 1. HERO ===================== -->
-    <section class="hero" id="hero">
-      <!-- The 3D Vanta Globe effect draws itself in here. The CSS gradient is the fallback. -->
-      <div class="hero__bg" id="heroBg" aria-hidden="true">
-        <!-- Tilted, drifting photo grid (built by script.js). Photos are listed in script.js under GRID_IMAGES. -->
-        <div class="gm" id="gm"></div>
-        <div class="gm__dim" id="gmDim"></div>
-        <div class="gm__fade"></div>
-      </div>
-      <div class="hero__fade" aria-hidden="true"></div>
+    <!-- ===================== 1. THE BRAINSTORM ROOM (landing) =====================
+         A dark wall of notes and red thread, a desk, and a magnifying glass
+         visitors can pick up. Holding the glass over one of the three big
+         notes shows a project preview; clicking the glass opens that project.
+         Which project each note opens is set at the top of room.js.
+         The small background notes and photos are also listed in room.js.
+         ============================================================ -->
+    <section class="hero room" id="hero">
+      <div class="room__scene" id="roomScene">
 
-      <div class="container hero__inner">
+        <!-- Everything in "room__world" can be seen through the magnifying glass -->
+        <div class="room__world" id="roomWorld">
+          <div class="wall" id="wall">
+            <div class="wall__paper"></div>
+            <!-- Faint blueprint drawings on the wall -->
+            <svg class="wall__sketch" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <g fill="none" stroke="#bfe3ff" stroke-width="1.4" stroke-linecap="round">
+                <circle cx="250" cy="330" r="92"/><circle cx="250" cy="330" r="58" stroke-dasharray="5 7"/>
+                <path d="M130 330h240M250 210v240"/>
+                <path d="M1070 120h230v130h-230zM1110 250v60h150v-60M1185 310v50"/>
+                <path d="M1040 90v190M1030 100h20M1030 270h20" stroke-dasharray="3 6"/>
+                <path d="M520 520h120l40-46h130l40 46h120"/><path d="M520 540h450" stroke-dasharray="3 6"/>
+                <path d="M610 60l70 40-70 40-70-40zM680 100h90M770 80h110v40h-110z"/>
+                <path d="M1210 470a70 70 0 1 1 0.1 0M1210 400v70l48 30"/>
+                <path d="M60 520h150M60 540h110M60 560h130"/>
+              </g>
+            </svg>
 
-        <!-- [EDIT ME] Headline. Keep the <span class="grad"> around the part you want glowing. -->
-        <h1 class="hero__title" id="heroTitle">Making AI worth <span class="grad grad--move">trusting</span></h1>
+            <div class="wall__bits" id="wallBits"></div>            <!-- small notes + photos (built by room.js) -->
+            <svg class="wall__threads" id="wallThreads" aria-hidden="true"></svg>
+            <div class="wall__dark" aria-hidden="true"></div>       <!-- the darkness over the wall -->
+            <svg class="wall__threads wall__threads--lit" id="wallThreadsLit" aria-hidden="true"></svg>
 
-        <!-- [EDIT ME] Short line under the headline -->
-        <p class="hero__sub" data-hero-fade>I’m Joshua, the one in the room who speaks both ‘engineer’ and ‘regulator’, and makes sure everyone else follows along.</p>
+            <div class="room__head">
+              <p class="room__eyebrow">Joshua Matthias · the working wall</p>
+              <!-- [EDIT ME] Headline. Keep the <span class="grad"> around the part you want glowing. -->
+              <h1 class="room__title" id="heroTitle">Making AI worth <span class="grad grad--move">trusting</span></h1>
+              <!-- [EDIT ME] Short line under the headline -->
+              <p class="room__sub">I’m Joshua, the one in the room who speaks both ‘engineer’ and ‘regulator’, and makes sure everyone else follows along.</p>
+            </div>
 
-        <div class="hero__actions" data-hero-fade>
-          <a href="#work" class="btn btn--primary">View my work <span class="btn__arrow">→</span></a>
-          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+            <!-- [EDIT ME] The three big notes. Change the words here. The project each one opens is set in room.js. -->
+            <button type="button" class="keynote keynote--business" data-key="business" aria-label="Business. Inspect this note with the magnifying glass">
+              <i class="pin" aria-hidden="true"></i>
+              <span class="keynote__label">Business</span>
+              <span class="keynote__sub">brands, launches &amp; growth</span>
+            </button>
+            <button type="button" class="keynote keynote--policy" data-key="policy" aria-label="Policy. Inspect this note with the magnifying glass">
+              <i class="pin" aria-hidden="true"></i>
+              <span class="keynote__label">Policy</span>
+              <span class="keynote__sub">public campaigns &amp; trust</span>
+            </button>
+            <button type="button" class="keynote keynote--tech" data-key="tech" aria-label="Tech. Inspect this note with the magnifying glass">
+              <i class="pin" aria-hidden="true"></i>
+              <span class="keynote__label">Tech</span>
+              <span class="keynote__sub">AI builds &amp; hackathons</span>
+            </button>
+          </div>
+
+          <!-- The desk in the foreground -->
+          <div class="desk" aria-hidden="true">
+            <div class="desk__light"></div>
+            <div class="desk__pad"><i></i><i></i><i></i></div>
+            <div class="desk__spool"><i></i></div>
+            <div class="desk__pencil"></div>
+          </div>
+        </div>
+
+        <p class="room__hint" id="roomHint"><svg viewBox="0 0 60 40" aria-hidden="true"><path d="M4 34C14 10 34 6 52 12M52 12l-10-6M52 12l-8 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pick up the magnifying glass<br />and hold it over a note</span></p>
+
+        <!-- The magnifying glass (moved by room.js) -->
+        <div class="mag" id="mag" aria-hidden="true">
+          <div class="mag__shadow" id="magShadow"><i class="mag__shadow-ring"></i><i class="mag__shadow-handle"></i></div>
+          <div class="mag__arm" id="magArm">
+            <svg class="mag__handle" id="magHandle" viewBox="0 0 44 172">
+              <defs>
+                <linearGradient id="mgSteel" x1="0" x2="1"><stop offset="0" stop-color="#5d626b"/><stop offset=".22" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#9aa0aa"/><stop offset=".8" stop-color="#e9ecef"/><stop offset="1" stop-color="#4a4e56"/></linearGradient>
+                <linearGradient id="mgGrip" x1="0" x2="1"><stop offset="0" stop-color="#050608"/><stop offset=".28" stop-color="#3b3f48"/><stop offset=".5" stop-color="#17191d"/><stop offset=".86" stop-color="#0a0b0d"/><stop offset="1" stop-color="#24262b"/></linearGradient>
+              </defs>
+              <rect x="16" y="0" width="12" height="16" fill="url(#mgSteel)"/>
+              <rect x="8" y="11" width="28" height="23" rx="4" fill="url(#mgSteel)" stroke="#2c2f35" stroke-width=".6"/>
+              <path d="M8 17h28M8 28h28" stroke="#2c2f35" stroke-opacity=".5" stroke-width=".8"/>
+              <text x="22" y="26" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="7.5" font-weight="700" fill="#2a2d33">10×</text>
+              <path d="M10 33H34L38.5 150Q38.5 171 22 171Q5.500 171 5.500 150Z" fill="url(#mgGrip)"/>
+              <rect x="13" y="42" width="3.2" height="104" rx="1.6" fill="#fff" opacity=".2"/>
+              <path d="M9 160Q22 168 35 160" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="mag__lens">
+            <div class="mag__view" id="magView">
+              <!-- a zoomed copy of the room is placed here by room.js -->
+              <div class="mag__preview" id="magPreview">
+                <img id="magImg" alt="" />
+                <div class="mag__cap"><b id="magCat"></b><strong id="magTitle"></strong><em>Click to open <span>→</span></em></div>
+              </div>
+            </div>
+          </div>
+          <div class="mag__gloss"></div>
+          <div class="mag__ring"></div>
+          <div class="mag__hit" id="magHit"></div>
         </div>
       </div>
 
-      <a href="#about" class="scroll-hint" data-hero-fade aria-label="Scroll down">
+      <a href="#about" class="scroll-hint" aria-label="Scroll down">
         <span>Scroll</span><i></i>
       </a>
     </section>
@@ -227,7 +307,7 @@
           </article>
 
           <!-- AI 1 -->
-          <article class="card is-clickable" data-case="case-just-say-ahh" card--featured" data-category="ai">
+          <article class="card is-clickable" data-case="case-just-say-ahh" data-category="ai">
             <div class="card__img card__img--shot">
               <img src="images/just-say-ahh.jpg" alt="Just Say, Ah! app screen with a large red Start briefing button" loading="lazy" width="605" height="592" />
             </div>

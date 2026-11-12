@@ -6,6 +6,8 @@ A simple one-page website. No installing, no building. Just plain HTML, CSS and 
 index.html    <- all your text, links and sections
 style.css     <- colours, fonts and layout
 script.js     <- animations and smooth scrolling
+room.css      <- the look of the landing room (wall, notes, desk, magnifying glass)
+room.js       <- how the landing room works (the magnifying glass and the notes)
 images/       <- all pictures
 ```
 
@@ -22,7 +24,18 @@ Open `index.html`. Change the words between the tags, for example:
 - **Add a project:** copy a whole `<article class="card"> ... </article>` block and edit it.
   Keep `data-category` as `marketing` or `ai` so the filter buttons work.
 - **Colours:** at the top of `style.css`, the `:root` block holds all the colours.
-- **Hero photo grid:** at the top of `script.js`, `GRID_IMAGES` is the list of photos and `GRID` holds the speed, tilt, dimming and so on. To add a photo, put it in `images/grid` and add its path to the list.
+- **Landing room:** see the next section.
+
+## Edit the landing room (the magnifying glass page)
+Visitors land in a dark room with a wall of notes. They pick up the magnifying glass,
+hold it over one of the three big notes (Business, Policy, Tech), and it shows a project
+picture. Clicking the glass opens that project.
+- **Which project each note opens:** at the top of `room.js`, the `PROJECTS` list. For each note you set
+  the project (`project`, the same id the Work cards use), the picture (`image`) and the title.
+- **Words on the three big notes:** in `index.html`, search for `keynote`.
+- **Small background notes, photos and red thread:** at the top of `room.js`, the `BITS` and `THREADS` lists.
+- **How strong the zoom is:** `ZOOM` at the top of `room.js` (2 means twice as big).
+- **How dark the wall is:** `--darkness` at the top of `room.css`.
 
 ## Edit the case study pop-ups
 Click a project card on the site and a pop-up opens with the full story. Each pop-up is a
