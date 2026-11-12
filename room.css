@@ -74,10 +74,6 @@
   width: min(760px, 100% - 40px); text-align: center; pointer-events: none;
   animation: roomIn 1.1s 0.15s var(--ease) both;
 }
-.room__eyebrow {
-  font-family: var(--font-head); text-transform: uppercase; letter-spacing: 0.24em;
-  font-size: 0.72rem; font-weight: 600; color: var(--cyan); margin-bottom: 10px;
-}
 .room__title {
   font-family: var(--font-head); font-weight: 700; color: var(--white);
   font-size: clamp(2rem, min(6.2vw, 8.6vh), 4.5rem); line-height: 1.05; letter-spacing: -0.03em;
